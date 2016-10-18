@@ -1,0 +1,28 @@
+sudo: required
+
+services:
+  - docker
+
+language: java
+jdk: oraclejdk8
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+  #TAG
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+
+  #DOCKER
+  - export CONFIG=finnetrolle/botling
+  - docker build -t $CONFIG:$COMMIT .
+  - docker tag $CONFIG:$COMMIT $CONFIG:$TAG
+  - docker push $CONFIG
+
+notifications:
+  email:
+    - maxsyachin@gmail.com

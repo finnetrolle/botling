@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <property name="APP_NAME" value="telebot"/>
+    <property name="MAX_FILE_SIZE" value="1MB"/>
+    <property name="MAX_FILES" value="100"/>
+    <property name="PATH" value="log/"/>
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c{0} - %m%n"/>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${PATH}/${APP_NAME}.log</File>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>${MAX_FILES}</maxIndex>
+            <FileNamePattern>${PATH}/${APP_NAME}.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <logger name="ru.finnetrolle" level="DEBUG"/>
+    <logger name="org.jivesoftware" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="file"/>
+    </root>
+</configuration>
