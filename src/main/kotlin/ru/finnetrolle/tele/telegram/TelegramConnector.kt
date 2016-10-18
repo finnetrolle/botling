@@ -34,6 +34,8 @@ open class TelegramConnector {
     @PostConstruct
     open fun init() {
         LOG.info("Telegram bot is enabled")
+        LOG.info(" ------- OPTIONS FROM CONFIG ------- \n")
+        LOG.info("botUsername = $botUsername\n")
         try {
             api = BotApiExtender(botUsername, botToken, { msg -> messageProvider.processMessage(msg) })
         } catch (e: Exception) {
