@@ -23,7 +23,7 @@ open class MessageListener {
 
     @RabbitListener(queues = arrayOf("\${rabbit.tosend.q}"))
     open fun processCallback(msg: ToSend) {
-        LOG.debug("{PROCESS_MESSAGE} ${msg.chatId}")
+        LOG.debug("{PROCESS_MESSAGE} ${msg}")
         val message = SendMessage()
             .setReplyToMessageId(msg.replyToMessageId)
             .setChatId(msg.chatId)
