@@ -77,10 +77,10 @@ open class RabbitConfig {
         val factory = SimpleRabbitListenerContainerFactory()
         factory.setConnectionFactory(connectionFactory())
         factory.setMessageConverter(jsonMessageConverter())
-        factory.setConcurrentConsumers(2)
+        factory.setConcurrentConsumers(1)
         factory.setPrefetchCount(1)
         factory.setReceiveTimeout(10000L)
-        factory.setMaxConcurrentConsumers(2)
+        factory.setMaxConcurrentConsumers(1)
         return factory
     }
 
